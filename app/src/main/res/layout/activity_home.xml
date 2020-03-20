@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.covid19.monitoring.views.ui.home.HomeViewModel" />
+
+        <variable
+            name="pagerAdapter"
+            type="com.covid19.monitoring.views.ui.home.HomePagerAdapter" />
+
+        <variable
+            name="navigation"
+            type="com.google.android.material.bottomnavigation.BottomNavigationView" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".views.ui.home.HomeActivity">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_black"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    style="@style/roboto_21_medium_white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/title"
+                    android:textAlignment="center" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vpHome"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:bindNavigation="@{navigation}"
+            app:bindPagerAdapter="@{pagerAdapter}"
+            app:layout_constraintBottom_toTopOf="@id/bnvHome"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bnvHome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/dark_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/menus" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

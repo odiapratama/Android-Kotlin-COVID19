@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.covid19.monitoring.model.DailyUpdateData" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_black"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/ivClock"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/ic_last_24_hour"
+                android:contentDescription="@null"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvDate"
+                style="@style/roboto_13_medium_white"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:setDateFormat="@{data.reportDate}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivClock"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="19 March 2020" />
+
+            <TextView
+                android:id="@+id/tvConfirmed"
+                style="@style/roboto_14_medium_yellow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:drawableStart="@drawable/ic_up_arrow"
+                android:drawablePadding="4dp"
+                android:text="@{String.format(@string/prefix_confirmed, data.getTotalConfirmedWithSeparator())}"
+                app:layout_constraintStart_toEndOf="@id/ivClock"
+                app:layout_constraintTop_toBottomOf="@id/tvDate"
+                tools:text="Confirmed: 1000" />
+
+            <TextView
+                android:id="@+id/tvRecovered"
+                style="@style/roboto_14_medium_green"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:drawableStart="@drawable/ic_up_arrow"
+                android:drawablePadding="4dp"
+                android:text="@{String.format(@string/prefix_recovered, data.getTotalRecoveredWithSeparator())}"
+                app:layout_constraintStart_toEndOf="@id/tvConfirmed"
+                app:layout_constraintTop_toBottomOf="@id/tvDate"
+                tools:text="Recovered: 1000" />
+
+            <TextView
+                android:id="@+id/tvDetail"
+                style="@style/roboto_13_medium_white_70"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@{String.format(@string/prefix_daily_detail, data.getMainLandChinaWithSeparator(), data.getOtherLocationsWithSeparator())}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivClock"
+                app:layout_constraintTop_toBottomOf="@id/tvConfirmed"
+                tools:text="1000 Cases in China, 100 Cases Other Locations" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

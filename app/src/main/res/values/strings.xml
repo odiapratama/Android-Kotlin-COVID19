@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Covid19 Monitoring</string>
+    <string name="title">COVID19</string>
+    <string name="news">News</string>
+    <string name="statistics">Statistics</string>
+    <string name="maps">Maps</string>
+    <string name="confirmed">Confirmed</string>
+    <string name="recovered">Recovered</string>
+    <string name="deaths">Deaths</string>
+    <string name="daily_updates">Daily Updates</string>
+
+    <!-- PREFIX -->
+    <string name="prefix_confirmed">Confirmed: %s</string>
+    <string name="prefix_recovered">Recovered: %s</string>
+    <string name="prefix_daily_detail">%s Cases in China, %s in other locations</string>
 </resources>

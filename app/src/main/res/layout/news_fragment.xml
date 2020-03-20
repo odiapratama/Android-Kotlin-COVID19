@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <!--next improvement-->
+        <variable
+            name="globalData"
+            type="com.covid19.monitoring.model.GlobalData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/light_black">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvGlobalData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="2dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clConfirmed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/light_black"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tvConfirmed"
+                    style="@style/roboto_15_medium_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:layout_constraintEnd_toEndOf="@id/tvConfirmedText"
+                    app:layout_constraintStart_toStartOf="@id/tvConfirmedText"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="1000" />
+
+                <TextView
+                    android:id="@+id/tvConfirmedText"
+                    style="@style/roboto_16_medium_yellow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="4dp"
+                    android:text="@string/confirmed"
+                    app:layout_constraintEnd_toStartOf="@id/tvRecoveredText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvConfirmed" />
+
+                <TextView
+                    android:id="@+id/tvRecovered"
+                    style="@style/roboto_15_medium_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:layout_constraintEnd_toEndOf="@id/tvRecoveredText"
+                    app:layout_constraintStart_toStartOf="@id/tvRecoveredText"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="1000" />
+
+                <TextView
+                    android:id="@+id/tvRecoveredText"
+                    style="@style/roboto_16_medium_green"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="4dp"
+                    android:text="@string/recovered"
+                    app:layout_constraintEnd_toStartOf="@id/tvDeathsText"
+                    app:layout_constraintStart_toEndOf="@id/tvConfirmedText"
+                    app:layout_constraintTop_toBottomOf="@id/tvRecovered" />
+
+                <TextView
+                    android:id="@+id/tvDeaths"
+                    style="@style/roboto_15_medium_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:layout_constraintEnd_toEndOf="@id/tvDeathsText"
+                    app:layout_constraintStart_toStartOf="@id/tvDeathsText"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="1000" />
+
+                <TextView
+                    android:id="@+id/tvDeathsText"
+                    style="@style/roboto_16_medium_orange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="4dp"
+                    android:text="@string/deaths"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvRecoveredText"
+                    app:layout_constraintTop_toBottomOf="@id/tvRecovered" />
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmerGlobalData"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@id/tvDeathsText"
+                    app:layout_constraintStart_toStartOf="@id/tvConfirmedText"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tvConfirmedLoading"
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"
+                        android:background="@drawable/shape_rounded_placeholder" />
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tvDailyUpdatesText"
+            style="@style/roboto_18_medium_white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="@string/daily_updates"
+            app:layout_constraintTop_toBottomOf="@id/cvGlobalData" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvDailyUpdates"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDailyUpdatesText">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerDailyUpdates"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvDailyUpdatesText">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/item_daily_placeholder" />
+
+                <include layout="@layout/item_daily_placeholder" />
+
+                <include layout="@layout/item_daily_placeholder" />
+
+                <include layout="@layout/item_daily_placeholder" />
+
+                <include layout="@layout/item_daily_placeholder" />
+
+                <include layout="@layout/item_daily_placeholder" />
+
+                <include layout="@layout/item_daily_placeholder" />
+
+                <include layout="@layout/item_daily_placeholder" />
+
+                <include layout="@layout/item_daily_placeholder" />
+
+                <include layout="@layout/item_daily_placeholder" />
+
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

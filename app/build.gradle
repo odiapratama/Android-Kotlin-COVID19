@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.covid19.monitoring"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -24,6 +24,21 @@ android {
         }
     }
 
+    flavorDimensions "mode"
+    productFlavors {
+        dev {
+            applicationIdSuffix ".dev"
+            dimension "mode"
+            buildConfigField "String", "BASE_URL", "\"https://covid19.mathdro.id/\""
+
+        }
+
+        production {
+            dimension "mode"
+            buildConfigField "String", "BASE_URL", "\"https://covid19.mathdro.id/\""
+        }
+    }
+
     dataBinding {
         enabled = true
     }
@@ -35,8 +50,15 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
     kapt "com.android.databinding:compiler:$compiler_version"
+
+    //android support
+    implementation "com.google.android.material:material:$material_version"
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
 
     // architecture components
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"

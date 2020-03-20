@@ -1,0 +1,11 @@
+package com.covid19.monitoring.di
+
+import com.covid19.monitoring.views.ui.home.HomeViewModel
+import com.covid19.monitoring.views.ui.news.NewsViewModel
+import org.koin.android.viewmodel.dsl.viewModel
+import org.koin.dsl.module
+
+val viewModelModule = module {
+    viewModel { HomeViewModel() }
+    viewModel { NewsViewModel(get()) }
+}
