@@ -26,7 +26,7 @@ class NewsFragment : DataBindingFragment() {
     ): View? {
         return binding<NewsFragmentBinding>(inflater, R.layout.news_fragment, container).apply {
             lifecycleOwner = this@NewsFragment
-            viewModel = getViewModel()
+            viewModel = getViewModel<NewsViewModel>().apply { fetchData() }
             binding = this
         }.root
     }
@@ -34,7 +34,7 @@ class NewsFragment : DataBindingFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(viewModel) {
-            getGlobalData().observe(viewLifecycleOwner, Observer { res ->
+            globalData.observe(viewLifecycleOwner, Observer { res ->
                 when (res.status) {
                     Status.LOADING -> {
                         loadingGlobalData(true)
@@ -48,7 +48,7 @@ class NewsFragment : DataBindingFragment() {
                 }
             })
 
-            getDailyUpdatesData().observe(viewLifecycleOwner, Observer { res ->
+            dailyUpdatesData.observe(viewLifecycleOwner, Observer { res ->
                 when (res.status) {
                     Status.LOADING -> {
                         loadingDailyUpdates(true)
@@ -77,9 +77,9 @@ class NewsFragment : DataBindingFragment() {
         with(binding) {
             if (show) {
                 shimmerGlobalData.visibility = View.VISIBLE
-                shimmerGlobalData.startShimmerAnimation()
+                shimmerGlobalData.isShimmerVisible
             } else {
-                shimmerGlobalData.stopShimmerAnimation()
+                shimmerGlobalData.stopShimmer()
                 shimmerGlobalData.visibility = View.GONE
             }
         }
@@ -89,9 +89,9 @@ class NewsFragment : DataBindingFragment() {
         with(binding) {
             if (show) {
                 shimmerDailyUpdates.visibility = View.VISIBLE
-                shimmerDailyUpdates.startShimmerAnimation()
+                shimmerDailyUpdates.startShimmer()
             } else {
-                shimmerDailyUpdates.stopShimmerAnimation()
+                shimmerDailyUpdates.stopShimmer()
                 shimmerDailyUpdates.visibility = View.GONE
             }
         }

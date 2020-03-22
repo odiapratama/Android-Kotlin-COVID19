@@ -12,5 +12,7 @@
     <!-- PREFIX -->
     <string name="prefix_confirmed">Confirmed: %s</string>
     <string name="prefix_recovered">Recovered: %s</string>
+    <string name="prefix_deaths">Deaths: %s</string>
     <string name="prefix_daily_detail">%s Cases in China, %s in other locations</string>
+    <string name="prefix_last_update">Last update %s</string>
 </resources>

@@ -1,10 +1,14 @@
 package com.covid19.monitoring.binding
 
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
+import coil.api.load
+import coil.transform.CircleCropTransformation
 import com.covid19.monitoring.R
+import com.covid19.monitoring.extensions.loadImageCircleCrop
 import com.covid19.monitoring.utils.formatTime
 import com.covid19.monitoring.utils.toNumberSeparator
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -43,4 +47,9 @@ fun bindNavigation(view: ViewPager, nav: BottomNavigationView) {
 @BindingAdapter("setDateFormat")
 fun TextView.setDateFormat(time: Long?) {
     this.text = time?.formatTime()
+}
+
+@BindingAdapter("setImage")
+fun ImageView.setImage(isoCode: String) {
+    this.loadImageCircleCrop("https://www.countryflags.io/$isoCode/shiny/64.png")
 }

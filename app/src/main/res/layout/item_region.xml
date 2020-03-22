@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.covid19.monitoring.model.RegionData" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_black"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/ivFlag"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_margin="8dp"
+                android:contentDescription="@null"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:setImage="@{data.iso2 ?? ``}" />
+
+            <TextView
+                android:id="@+id/tvLocation"
+                style="@style/roboto_13_medium_white"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@{data.location}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivFlag"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Jakarta, Indonesia" />
+
+            <TextView
+                android:id="@+id/tvConfirmed"
+                style="@style/roboto_14_medium_yellow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:drawablePadding="4dp"
+                android:text="@{String.format(@string/prefix_confirmed, data.totalConfirmedWithSeparator)}"
+                app:layout_constraintStart_toEndOf="@id/ivFlag"
+                app:layout_constraintTop_toBottomOf="@id/tvLocation"
+                tools:text="Confirmed: 1000" />
+
+            <TextView
+                android:id="@+id/tvRecovered"
+                style="@style/roboto_14_medium_green"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:drawablePadding="4dp"
+                android:text="@{String.format(@string/prefix_recovered, data.totalRecoveredWithSeparator)}"
+                app:layout_constraintStart_toEndOf="@id/ivFlag"
+                app:layout_constraintTop_toBottomOf="@id/tvConfirmed"
+                tools:text="Recovered: 1000" />
+
+            <TextView
+                android:id="@+id/tvDeaths"
+                style="@style/roboto_14_medium_orange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:drawablePadding="4dp"
+                android:text="@{String.format(@string/prefix_deaths, data.totalDeathsWithSeparator)}"
+                app:layout_constraintStart_toEndOf="@id/tvRecovered"
+                app:layout_constraintTop_toBottomOf="@id/tvConfirmed"
+                tools:text="Deaths: 1000" />
+
+            <TextView
+                android:id="@+id/tvLastUpdate"
+                style="@style/roboto_10_medium_white_70"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@{String.format(@string/prefix_last_update, data.lastUpdateFormat)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Last update 20 March 2020" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

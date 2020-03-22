@@ -1,0 +1,33 @@
+package com.covid19.monitoring.views.adapters
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.covid19.monitoring.databinding.ItemRegionBinding
+import com.covid19.monitoring.model.RegionData
+
+class RegionAdapter(private var listRegion: List<RegionData>) :
+    RecyclerView.Adapter<RegionAdapter.BindingHolder>() {
+
+    inner class BindingHolder(val binding: ItemRegionBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = ItemRegionBinding.inflate(layoutInflater, parent, false)
+        return BindingHolder(binding)
+    }
+
+    override fun getItemCount(): Int = listRegion.size
+
+    override fun onBindViewHolder(holder: BindingHolder, position: Int) {
+        holder.binding.data = listRegion[position]
+    }
+
+    fun updateData(newList: List<RegionData>?) {
+        newList?.let {
+            listRegion = it
+            notifyDataSetChanged()
+        }
+    }
+}
