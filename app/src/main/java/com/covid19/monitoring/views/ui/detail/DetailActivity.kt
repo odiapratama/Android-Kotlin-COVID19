@@ -7,15 +7,11 @@ import com.covid19.monitoring.base.DataBindingActivity
 import com.covid19.monitoring.databinding.ActivityDetailBinding
 import com.covid19.monitoring.model.RegionData
 import com.covid19.monitoring.utils.REGION_DATA_EXTRA
-import com.covid19.monitoring.utils.toNumberSeparator
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
-import kotlinx.android.synthetic.main.activity_detail.*
 import org.koin.android.viewmodel.ext.android.viewModel
-import java.text.NumberFormat
-import java.util.*
 
 class DetailActivity : DataBindingActivity() {
 
@@ -34,10 +30,10 @@ class DetailActivity : DataBindingActivity() {
     private fun initView() {
         val pieDataSet = PieDataSet(
             listOf(
-                PieEntry(regionData.confirmed?.toFloat() ?: 0f, "Confirmed"),
-                PieEntry(regionData.recovered?.toFloat() ?: 0f, "Recovered"),
-                PieEntry(regionData.deaths?.toFloat() ?: 0f, "Deaths")
-            ), "COVID19"
+                PieEntry(regionData.confirmed?.toFloat() ?: 0f, getString(R.string.confirmed)),
+                PieEntry(regionData.recovered?.toFloat() ?: 0f, getString(R.string.recovered)),
+                PieEntry(regionData.deaths?.toFloat() ?: 0f, getString(R.string.deaths))
+            ), getString(R.string.app_name)
         )
         val colors = listOf(
             ContextCompat.getColor(this, R.color.yellow),
@@ -56,12 +52,6 @@ class DetailActivity : DataBindingActivity() {
             setDrawEntryLabels(false)
             animateY(1000, Easing.EaseInOutQuart)
             invalidate()
-        }
-
-        with(binding) {
-            /*tvTotalCases.text =
-                ((regionData.confirmed ?: 0) + (regionData.recovered ?: 0) + (regionData.deaths
-                    ?: 0)).toNumberSeparator()*/
         }
     }
 }
