@@ -9,6 +9,12 @@ import com.covid19.monitoring.model.RegionData
 class RegionAdapter(private var listRegion: List<RegionData>) :
     RecyclerView.Adapter<RegionAdapter.BindingHolder>() {
 
+    lateinit var listener: OnItemClickListener
+
+    interface OnItemClickListener {
+        fun onClick(regionData: RegionData)
+    }
+
     inner class BindingHolder(val binding: ItemRegionBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -21,7 +27,11 @@ class RegionAdapter(private var listRegion: List<RegionData>) :
     override fun getItemCount(): Int = listRegion.size
 
     override fun onBindViewHolder(holder: BindingHolder, position: Int) {
-        holder.binding.data = listRegion[position]
+        val data = listRegion[position]
+        holder.binding.data = data
+        holder.binding.cvRegion.setOnClickListener {
+            listener.onClick(data)
+        }
     }
 
     fun updateData(newList: List<RegionData>?) {

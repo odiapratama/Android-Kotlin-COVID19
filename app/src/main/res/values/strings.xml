@@ -8,6 +8,9 @@
     <string name="recovered">Recovered</string>
     <string name="deaths">Deaths</string>
     <string name="daily_updates">Daily Updates</string>
+    <string name="recovery_rate">Recovery Rate</string>
+    <string name="fatality_rate">Fatality Rate</string>
+    <string name="cases_reported">Cases Reported</string>
 
     <!-- PREFIX -->
     <string name="prefix_confirmed">Confirmed: %s</string>

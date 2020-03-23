@@ -9,8 +9,12 @@ import coil.api.load
 import coil.transform.CircleCropTransformation
 import com.covid19.monitoring.R
 import com.covid19.monitoring.extensions.loadImageCircleCrop
+import com.covid19.monitoring.model.RegionData
 import com.covid19.monitoring.utils.formatTime
 import com.covid19.monitoring.utils.toNumberSeparator
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 @BindingAdapter("bindPagerAdapter")

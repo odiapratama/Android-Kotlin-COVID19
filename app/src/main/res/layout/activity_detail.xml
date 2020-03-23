@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.covid19.monitoring.model.RegionData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/light_gray"
+        tools:context="com.covid19.monitoring.views.ui.detail.DetailActivity">
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pieChart"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:padding="16dp"
+            app:layout_constraintBottom_toTopOf="@id/cvData"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@id/pieChart"
+            app:layout_constraintEnd_toEndOf="@id/pieChart"
+            app:layout_constraintStart_toStartOf="@id/pieChart"
+            app:layout_constraintTop_toTopOf="@id/pieChart">
+
+            <TextView
+                style="@style/roboto_18_medium_white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{data.location}"
+                tools:text="Indonesia" />
+
+            <TextView
+                style="@style/roboto_16_medium_white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{data.totalCases}"
+                tools:text="1000" />
+
+            <TextView
+                style="@style/roboto_14_medium_white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cases_reported" />
+
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="2dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clConfirmed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/light_black"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tvConfirmed"
+                    style="@style/roboto_15_medium_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@{data.totalConfirmedWithSeparator}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="1000" />
+
+                <TextView
+                    android:id="@+id/tvConfirmedText"
+                    style="@style/roboto_16_medium_yellow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="4dp"
+                    android:text="@string/confirmed"
+                    app:layout_constraintEnd_toEndOf="@id/tvConfirmed"
+                    app:layout_constraintStart_toStartOf="@id/tvConfirmed"
+                    app:layout_constraintTop_toBottomOf="@id/tvConfirmed" />
+
+                <TextView
+                    android:id="@+id/tvRecovered"
+                    style="@style/roboto_15_medium_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="16dp"
+                    android:text="@{data.totalRecoveredWithSeparator}"
+                    app:layout_constraintEnd_toEndOf="@id/tvRecoveredText"
+                    app:layout_constraintStart_toStartOf="@id/tvRecoveredText"
+                    app:layout_constraintTop_toBottomOf="@id/tvConfirmedText"
+                    tools:text="1000" />
+
+                <TextView
+                    android:id="@+id/tvRecoveredText"
+                    style="@style/roboto_16_medium_green"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="4dp"
+                    android:text="@string/recovered"
+                    app:layout_constraintEnd_toStartOf="@id/tvRecoveryRateText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvRecovered" />
+
+                <TextView
+                    android:id="@+id/tvRecoveryRate"
+                    style="@style/roboto_15_medium_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="16dp"
+                    android:text="@{data.recoveryRate}"
+                    app:layout_constraintEnd_toEndOf="@id/tvRecoveryRateText"
+                    app:layout_constraintStart_toStartOf="@id/tvRecoveryRateText"
+                    app:layout_constraintTop_toBottomOf="@id/tvConfirmedText"
+                    tools:text="1000" />
+
+                <TextView
+                    android:id="@+id/tvRecoveryRateText"
+                    style="@style/roboto_16_medium_green"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="4dp"
+                    android:text="@string/recovery_rate"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvRecoveredText"
+                    app:layout_constraintTop_toBottomOf="@id/tvRecovered" />
+
+                <TextView
+                    android:id="@+id/tvDeaths"
+                    style="@style/roboto_15_medium_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="16dp"
+                    android:text="@{data.totalDeathsWithSeparator}"
+                    app:layout_constraintEnd_toEndOf="@id/tvDeathsText"
+                    app:layout_constraintStart_toStartOf="@id/tvDeathsText"
+                    app:layout_constraintTop_toBottomOf="@id/tvRecoveredText"
+                    tools:text="1000" />
+
+                <TextView
+                    android:id="@+id/tvDeathsText"
+                    style="@style/roboto_16_medium_orange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="4dp"
+                    android:text="@string/deaths"
+                    app:layout_constraintEnd_toStartOf="@id/tvFatalityRateText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvDeaths" />
+
+                <TextView
+                    android:id="@+id/tvFatalityRate"
+                    style="@style/roboto_15_medium_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="16dp"
+                    android:text="@{data.fatalityRate}"
+                    app:layout_constraintEnd_toEndOf="@id/tvFatalityRateText"
+                    app:layout_constraintStart_toStartOf="@id/tvFatalityRateText"
+                    app:layout_constraintTop_toBottomOf="@id/tvRecoveredText"
+                    tools:text="1000" />
+
+                <TextView
+                    android:id="@+id/tvFatalityRateText"
+                    style="@style/roboto_16_medium_orange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="4dp"
+                    android:text="@string/fatality_rate"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvDeathsText"
+                    app:layout_constraintTop_toBottomOf="@id/tvDeaths" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
