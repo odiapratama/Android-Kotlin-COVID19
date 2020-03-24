@@ -10,6 +10,7 @@ import coil.transform.CircleCropTransformation
 import com.covid19.monitoring.R
 import com.covid19.monitoring.extensions.loadImageCircleCrop
 import com.covid19.monitoring.model.RegionData
+import com.covid19.monitoring.utils.convertDateFormat
 import com.covid19.monitoring.utils.formatTime
 import com.covid19.monitoring.utils.toNumberSeparator
 import com.github.mikephil.charting.charts.PieChart
@@ -49,8 +50,8 @@ fun bindNavigation(view: ViewPager, nav: BottomNavigationView) {
 }
 
 @BindingAdapter("setDateFormat")
-fun TextView.setDateFormat(time: Long?) {
-    this.text = time?.formatTime()
+fun TextView.setDateFormat(time: String?) {
+    this.text = time?.convertDateFormat()
 }
 
 @BindingAdapter("setImage")

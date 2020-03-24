@@ -33,6 +33,11 @@ class NewsFragment : DataBindingFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.rvDailyUpdates.adapter = dailyAdapter
+        observeData()
+    }
+
+    private fun observeData() {
         with(viewModel) {
             globalData.observe(viewLifecycleOwner, Observer { res ->
                 when (res.status) {
@@ -44,6 +49,8 @@ class NewsFragment : DataBindingFragment() {
                         loadingGlobalData(false)
                     }
                     Status.ERROR -> {
+                        initViewGlobalData(res.data)
+                        loadingGlobalData(false)
                     }
                 }
             })
@@ -54,11 +61,12 @@ class NewsFragment : DataBindingFragment() {
                         loadingDailyUpdates(true)
                     }
                     Status.SUCCESS -> {
-                        binding.rvDailyUpdates.adapter = dailyAdapter
                         dailyAdapter.updateData(res.data?.reversed())
                         loadingDailyUpdates(false)
                     }
                     Status.ERROR -> {
+                        dailyAdapter.updateData(res.data?.reversed())
+                        loadingDailyUpdates(false)
                     }
                 }
             })

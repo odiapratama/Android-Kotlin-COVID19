@@ -3,7 +3,7 @@ package com.covid19.monitoring.model
 import com.covid19.monitoring.utils.toNumberSeparator
 
 data class DailyUpdateData(
-    val reportDate: Long?,
+    val reportDate: String?,
     val mainlandChina: Int?,
     val otherLocations: Int?,
     val totalConfirmed: Int?,

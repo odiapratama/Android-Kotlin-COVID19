@@ -1,9 +1,6 @@
 package com.covid19.monitoring.di
 
-import com.covid19.monitoring.services.API_PATH
-import com.covid19.monitoring.services.Api
-import com.covid19.monitoring.services.Repository
-import com.covid19.monitoring.services.RepositoryImpl
+import com.covid19.monitoring.services.*
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -19,7 +16,8 @@ val serviceModule = module {
             getProperty("global_api")
         )
     }
-    single { RepositoryImpl(get()) as Repository }
+    single { AppPreferences(get()) }
+    single { RepositoryImpl(get(), get()) as Repository }
 }
 
 private fun createOkHttpClient(): OkHttpClient {

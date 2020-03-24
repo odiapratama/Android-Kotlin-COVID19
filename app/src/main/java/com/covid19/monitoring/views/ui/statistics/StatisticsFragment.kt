@@ -41,16 +41,21 @@ class StatisticsFragment : DataBindingFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.rvRegion.adapter = regionAdapter
         initListener()
+        observeData()
+    }
+
+    private fun observeData() {
         viewModel.listRegionData.observe(viewLifecycleOwner, Observer { res ->
             when (res.status) {
                 Status.LOADING -> {
                 }
                 Status.SUCCESS -> {
-                    binding.rvRegion.adapter = regionAdapter
                     regionAdapter.updateData(res.data)
                 }
                 Status.ERROR -> {
+                    regionAdapter.updateData(res.data)
                 }
             }
         })

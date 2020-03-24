@@ -48,6 +48,10 @@ class MapsFragment : DataBindingFragment(), OnMapReadyCallback {
         binding.fMaps.onCreate(savedInstanceState)
         binding.fMaps.onResume()
         binding.fMaps.getMapAsync(this)
+        observeData()
+    }
+
+    private fun observeData() {
         viewModel.listRegionData.observe(viewLifecycleOwner, Observer { res ->
             when (res.status) {
                 Status.LOADING -> {
@@ -56,6 +60,7 @@ class MapsFragment : DataBindingFragment(), OnMapReadyCallback {
                     initMarkers(res.data)
                 }
                 Status.ERROR -> {
+                    initMarkers(res.data)
                 }
             }
         })
