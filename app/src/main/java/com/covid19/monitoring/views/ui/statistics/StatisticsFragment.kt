@@ -14,12 +14,14 @@ import com.covid19.monitoring.services.Status
 import com.covid19.monitoring.utils.REGION_DATA_EXTRA
 import com.covid19.monitoring.views.adapters.RegionAdapter
 import com.covid19.monitoring.views.ui.detail.DetailActivity
+import com.covid19.monitoring.views.ui.home.HomeViewModel
 import org.koin.android.viewmodel.ext.android.getViewModel
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 
 class StatisticsFragment : DataBindingFragment() {
 
-    private lateinit var viewModel: StatisticsViewModel
+    private val viewModel by sharedViewModel<HomeViewModel>()
     private lateinit var binding: StatisticsFragmentBinding
     private val regionAdapter by lazy { RegionAdapter(emptyList()) }
 
@@ -33,7 +35,6 @@ class StatisticsFragment : DataBindingFragment() {
             container
         ).apply {
             lifecycleOwner = this@StatisticsFragment
-            viewModel = getViewModel<StatisticsViewModel>().apply { fetch() }
             binding = this
         }.root
     }

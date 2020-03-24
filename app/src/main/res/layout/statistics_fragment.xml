@@ -4,6 +4,7 @@
 
     <data>
 
+        <!-- next improvement -->
         <variable
             name="data"
             type="com.covid19.monitoring.model.RegionData" />

@@ -1,20 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="regionData"
+            type="com.covid19.monitoring.model.RegionData" />
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.covid19.monitoring.views.ui.maps.MapsFragment">
 
-        <TextView
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/fMaps"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Hello" />
+            android:layout_height="match_parent" />
 
-    </FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clConfirmed"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_black"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:id="@+id/ivClose"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_close"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvConfirmed"
+                style="@style/roboto_15_medium_white"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@{regionData.totalConfirmedWithSeparator}"
+                app:layout_constraintEnd_toEndOf="@id/tvConfirmedText"
+                app:layout_constraintStart_toStartOf="@id/tvConfirmedText"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="1000" />
+
+            <TextView
+                android:id="@+id/tvConfirmedText"
+                style="@style/roboto_16_medium_yellow"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="4dp"
+                android:text="@string/confirmed"
+                app:layout_constraintEnd_toStartOf="@id/tvRecoveredText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvConfirmed" />
+
+            <TextView
+                android:id="@+id/tvRecovered"
+                style="@style/roboto_15_medium_white"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@{regionData.totalRecoveredWithSeparator}"
+                app:layout_constraintEnd_toEndOf="@id/tvRecoveredText"
+                app:layout_constraintStart_toStartOf="@id/tvRecoveredText"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="1000" />
+
+            <TextView
+                android:id="@+id/tvRecoveredText"
+                style="@style/roboto_16_medium_green"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="4dp"
+                android:text="@string/recovered"
+                app:layout_constraintEnd_toStartOf="@id/tvDeathsText"
+                app:layout_constraintStart_toEndOf="@id/tvConfirmedText"
+                app:layout_constraintTop_toBottomOf="@id/tvRecovered" />
+
+            <TextView
+                android:id="@+id/tvDeaths"
+                style="@style/roboto_15_medium_white"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@{regionData.totalDeathsWithSeparator}"
+                app:layout_constraintEnd_toEndOf="@id/tvDeathsText"
+                app:layout_constraintStart_toStartOf="@id/tvDeathsText"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="1000" />
+
+            <TextView
+                android:id="@+id/tvDeathsText"
+                style="@style/roboto_16_medium_orange"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="4dp"
+                android:text="@string/deaths"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvRecoveredText"
+                app:layout_constraintTop_toBottomOf="@id/tvRecovered" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

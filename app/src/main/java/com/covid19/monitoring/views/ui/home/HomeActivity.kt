@@ -21,5 +21,6 @@ class HomeActivity : DataBindingActivity() {
             navigation = bnvHome
             viewModel = homeViewModel
         }
+        homeViewModel.fetch()
     }
 }

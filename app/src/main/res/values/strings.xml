@@ -1,4 +1,8 @@
 <resources>
+    <!-- MAPS API -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">PUT THE KEY HERE</string>
+
+    <!-- TEXT -->
     <string name="app_name">Covid19 Monitoring</string>
     <string name="title">COVID19</string>
     <string name="news">News</string>
