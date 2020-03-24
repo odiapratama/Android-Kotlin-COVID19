@@ -95,6 +95,16 @@
                     app:layout_constraintStart_toEndOf="@id/tvRecoveredText"
                     app:layout_constraintTop_toBottomOf="@id/tvRecovered" />
 
+                <TextView
+                    style="@style/roboto_10_medium_white_70"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/data_source"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvConfirmedText" />
+
                 <com.facebook.shimmer.ShimmerFrameLayout
                     android:id="@+id/shimmerGlobalData"
                     android:layout_width="0dp"

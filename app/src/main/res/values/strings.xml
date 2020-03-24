@@ -15,6 +15,7 @@
     <string name="recovery_rate">Recovery Rate</string>
     <string name="fatality_rate">Fatality Rate</string>
     <string name="cases_reported">Cases Reported</string>
+    <string name="data_source">Data source: https://covid19.mathdro.id/api</string>
 
     <!-- PREFIX -->
     <string name="prefix_confirmed">Confirmed: %s</string>
