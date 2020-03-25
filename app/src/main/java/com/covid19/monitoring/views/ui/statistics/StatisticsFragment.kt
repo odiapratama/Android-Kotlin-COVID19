@@ -1,5 +1,7 @@
 package com.covid19.monitoring.views.ui.statistics
 
+import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,7 +17,6 @@ import com.covid19.monitoring.utils.REGION_DATA_EXTRA
 import com.covid19.monitoring.views.adapters.RegionAdapter
 import com.covid19.monitoring.views.ui.detail.DetailActivity
 import com.covid19.monitoring.views.ui.home.HomeViewModel
-import org.koin.android.viewmodel.ext.android.getViewModel
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 
@@ -63,10 +64,15 @@ class StatisticsFragment : DataBindingFragment() {
 
     private fun initListener() {
         regionAdapter.listener = object : RegionAdapter.OnItemClickListener {
-            override fun onClick(regionData: RegionData) {
+            override fun onClick(view: View, regionData: RegionData) {
                 val intent = Intent(this@StatisticsFragment.context, DetailActivity::class.java)
+                val options = ActivityOptions.makeSceneTransitionAnimation(
+                    this@StatisticsFragment.context as Activity?,
+                    view,
+                    regionData.countryRegion
+                )
                 intent.putExtra(REGION_DATA_EXTRA, regionData)
-                startActivity(intent)
+                startActivity(intent, options.toBundle())
             }
         }
     }

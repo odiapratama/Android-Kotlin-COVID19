@@ -1,6 +1,7 @@
 package com.covid19.monitoring.views.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.covid19.monitoring.databinding.ItemRegionBinding
@@ -12,7 +13,7 @@ class RegionAdapter(private var listRegion: List<RegionData>) :
     lateinit var listener: OnItemClickListener
 
     interface OnItemClickListener {
-        fun onClick(regionData: RegionData)
+        fun onClick(view: View, regionData: RegionData)
     }
 
     inner class BindingHolder(val binding: ItemRegionBinding) :
@@ -30,7 +31,7 @@ class RegionAdapter(private var listRegion: List<RegionData>) :
         val data = listRegion[position]
         holder.binding.data = data
         holder.binding.cvRegion.setOnClickListener {
-            listener.onClick(data)
+            listener.onClick(it, data)
         }
     }
 

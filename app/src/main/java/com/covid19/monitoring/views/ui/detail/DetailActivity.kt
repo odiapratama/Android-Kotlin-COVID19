@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat
 import com.covid19.monitoring.R
 import com.covid19.monitoring.base.DataBindingActivity
 import com.covid19.monitoring.databinding.ActivityDetailBinding
+import com.covid19.monitoring.extensions.applyMaterialTransform
 import com.covid19.monitoring.model.RegionData
 import com.covid19.monitoring.utils.REGION_DATA_EXTRA
 import com.github.mikephil.charting.animation.Easing
@@ -21,10 +22,11 @@ class DetailActivity : DataBindingActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
         regionData = intent.getSerializableExtra(REGION_DATA_EXTRA) as RegionData
+        applyMaterialTransform(regionData.countryRegion ?: "")
         binding.data = regionData
         initView()
+        initListener()
     }
 
     private fun initView() {
@@ -52,6 +54,12 @@ class DetailActivity : DataBindingActivity() {
             setDrawEntryLabels(false)
             animateY(1000, Easing.EaseInOutQuart)
             invalidate()
+        }
+    }
+
+    private fun initListener() {
+        binding.fabBack.setOnClickListener {
+            onBackPressed()
         }
     }
 }

@@ -16,6 +16,17 @@
         android:background="@color/light_gray"
         tools:context="com.covid19.monitoring.views.ui.detail.DetailActivity">
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_back"
+            app:backgroundTint="@color/light_gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pieChart"
             android:layout_width="match_parent"
@@ -34,6 +45,12 @@
             app:layout_constraintStart_toStartOf="@id/pieChart"
             app:layout_constraintTop_toTopOf="@id/pieChart">
 
+            <ImageView
+                setImage="@{data.iso2 ?? ``}"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:contentDescription="@null" />
+
             <TextView
                 style="@style/roboto_18_medium_white"
                 android:layout_width="wrap_content"
@@ -45,6 +62,7 @@
                 style="@style/roboto_16_medium_white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="@{data.totalCases}"
                 tools:text="1000" />
 
@@ -63,12 +81,13 @@
             android:layout_margin="8dp"
             app:cardCornerRadius="5dp"
             app:cardElevation="2dp"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pieChart">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clConfirmed"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@color/light_black"
                 android:padding="16dp">
 
@@ -76,7 +95,7 @@
                     android:id="@+id/tvConfirmed"
                     style="@style/roboto_15_medium_white"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="@{data.totalConfirmedWithSeparator}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -87,7 +106,7 @@
                     android:id="@+id/tvConfirmedText"
                     style="@style/roboto_16_medium_yellow"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:padding="4dp"
                     android:text="@string/confirmed"
                     app:layout_constraintEnd_toEndOf="@id/tvConfirmed"
@@ -98,7 +117,7 @@
                     android:id="@+id/tvRecovered"
                     style="@style/roboto_15_medium_white"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="@{data.totalRecoveredWithSeparator}"
                     app:layout_constraintEnd_toEndOf="@id/tvRecoveredText"
@@ -110,7 +129,7 @@
                     android:id="@+id/tvRecoveredText"
                     style="@style/roboto_16_medium_green"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:padding="4dp"
                     android:text="@string/recovered"
                     app:layout_constraintEnd_toStartOf="@id/tvRecoveryRateText"
@@ -121,7 +140,7 @@
                     android:id="@+id/tvRecoveryRate"
                     style="@style/roboto_15_medium_white"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="@{data.recoveryRate}"
                     app:layout_constraintEnd_toEndOf="@id/tvRecoveryRateText"
@@ -133,7 +152,7 @@
                     android:id="@+id/tvRecoveryRateText"
                     style="@style/roboto_16_medium_green"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:padding="4dp"
                     android:text="@string/recovery_rate"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -144,7 +163,7 @@
                     android:id="@+id/tvDeaths"
                     style="@style/roboto_15_medium_white"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="@{data.totalDeathsWithSeparator}"
                     app:layout_constraintEnd_toEndOf="@id/tvDeathsText"
@@ -156,7 +175,7 @@
                     android:id="@+id/tvDeathsText"
                     style="@style/roboto_16_medium_orange"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:padding="4dp"
                     android:text="@string/deaths"
                     app:layout_constraintEnd_toStartOf="@id/tvFatalityRateText"
@@ -167,7 +186,7 @@
                     android:id="@+id/tvFatalityRate"
                     style="@style/roboto_15_medium_white"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="@{data.fatalityRate}"
                     app:layout_constraintEnd_toEndOf="@id/tvFatalityRateText"
@@ -179,7 +198,7 @@
                     android:id="@+id/tvFatalityRateText"
                     style="@style/roboto_16_medium_orange"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:padding="4dp"
                     android:text="@string/fatality_rate"
                     app:layout_constraintEnd_toEndOf="parent"
