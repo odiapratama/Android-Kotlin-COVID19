@@ -51,12 +51,15 @@ class StatisticsFragment : DataBindingFragment() {
         viewModel.listRegionData.observe(viewLifecycleOwner, Observer { res ->
             when (res.status) {
                 Status.LOADING -> {
+                    loadingRegionData(true)
                 }
                 Status.SUCCESS -> {
                     regionAdapter.updateData(res.data)
+                    loadingRegionData(false)
                 }
                 Status.ERROR -> {
                     regionAdapter.updateData(res.data)
+                    loadingRegionData(false)
                 }
             }
         })
@@ -73,6 +76,18 @@ class StatisticsFragment : DataBindingFragment() {
                 )
                 intent.putExtra(REGION_DATA_EXTRA, regionData)
                 startActivity(intent, options.toBundle())
+            }
+        }
+    }
+
+    private fun loadingRegionData(show: Boolean) {
+        with(binding) {
+            if (show) {
+                shimmerRegion.visibility = View.VISIBLE
+                shimmerRegion.startShimmer()
+            } else {
+                shimmerRegion.stopShimmer()
+                shimmerRegion.visibility = View.GONE
             }
         }
     }

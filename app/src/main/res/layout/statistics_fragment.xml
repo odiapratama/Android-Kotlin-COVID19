@@ -10,14 +10,56 @@
             type="com.covid19.monitoring.model.RegionData" />
     </data>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvRegion"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/light_gray"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+        android:background="@color/light_gray">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvRegion"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerRegion"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/item_daily_placeholder" />
+
+                <include layout="@layout/item_daily_placeholder" />
+
+                <include layout="@layout/item_daily_placeholder" />
+
+                <include layout="@layout/item_daily_placeholder" />
+
+                <include layout="@layout/item_daily_placeholder" />
+
+                <include layout="@layout/item_daily_placeholder" />
+
+                <include layout="@layout/item_daily_placeholder" />
+
+                <include layout="@layout/item_daily_placeholder" />
+
+                <include layout="@layout/item_daily_placeholder" />
+
+                <include layout="@layout/item_daily_placeholder" />
+
+                <include layout="@layout/item_daily_placeholder" />
+
+                <include layout="@layout/item_daily_placeholder" />
+
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
