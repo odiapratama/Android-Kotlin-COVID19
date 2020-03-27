@@ -31,7 +31,7 @@ class DailyUpdatesAdapter(private var listDailyData: List<DailyUpdateData>) :
             } else {
                 holder.binding.tvConfirmed.setLeftDrawable(R.drawable.ic_up_arrow)
             }
-            if (data.deltaRecovered == null || data.deltaConfirmed == 0) {
+            if (data.deltaRecovered == null || data.deltaRecovered == 0) {
                 holder.binding.tvRecovered.setLeftDrawable(R.drawable.ic_right_arrow)
             } else {
                 holder.binding.tvRecovered.setLeftDrawable(R.drawable.ic_up_arrow)

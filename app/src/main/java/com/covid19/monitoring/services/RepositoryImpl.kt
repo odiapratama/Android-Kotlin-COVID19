@@ -14,6 +14,7 @@ class RepositoryImpl(private val api: Api, private val appPref: AppPreferences) 
 
     override suspend fun getGlobalData() = withContext(Dispatchers.IO) {
         val liveData = MutableLiveData<Resource<GlobalData>>()
+        liveData.postValue(Resource.loading())
         api.getGlobalData().enqueue(object : Callback<GlobalData> {
             override fun onFailure(call: Call<GlobalData>, t: Throwable) {
                 liveData.postValue(Resource.error(t.message ?: "", appPref.getGlobalData()))
@@ -29,6 +30,7 @@ class RepositoryImpl(private val api: Api, private val appPref: AppPreferences) 
 
     override suspend fun getDailyUpdateData() = withContext(Dispatchers.IO) {
         val liveData = MutableLiveData<Resource<List<DailyUpdateData>>>()
+        liveData.postValue(Resource.loading())
         api.getDailyUpdates().enqueue(object : Callback<List<DailyUpdateData>> {
             override fun onFailure(call: Call<List<DailyUpdateData>>, t: Throwable) {
                 liveData.postValue(Resource.error(t.message ?: "", appPref.getDailyList()))

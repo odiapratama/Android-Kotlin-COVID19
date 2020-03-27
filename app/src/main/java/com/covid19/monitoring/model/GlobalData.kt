@@ -1,5 +1,7 @@
 package com.covid19.monitoring.model
 
+import com.covid19.monitoring.utils.toNumberSeparator
+
 data class GlobalData(
     val confirmed: GlobalValue?,
     val recovered: GlobalValue?,
@@ -11,7 +13,11 @@ data class GlobalData(
     val countries: String?,
     val countryDetail: GlobalDetail?,
     val lastUpdate: String?
-)
+) {
+    val confirmedWithSeparator get() = confirmed?.value?.toNumberSeparator()
+    val recoveredWithSeparator get() = recovered?.value?.toNumberSeparator()
+    val deathsWithSeparator get() = deaths?.value?.toNumberSeparator()
+}
 
 data class GlobalValue(
     val value: Int?,
