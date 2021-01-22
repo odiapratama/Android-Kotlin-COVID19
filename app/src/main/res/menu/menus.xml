@@ -4,19 +4,19 @@
     <item
         android:id="@+id/item_news"
         android:enabled="true"
-        android:icon="@drawable/ic_news"
+        android:icon="@drawable/ic_baseline_timeline_24"
         android:title="@string/news"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/item_statistics"
         android:enabled="true"
-        android:icon="@drawable/ic_statistics"
+        android:icon="@drawable/ic_baseline_bar_chart_24"
         android:title="@string/statistics"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/item_maps"
         android:enabled="true"
-        android:icon="@drawable/ic_maps"
+        android:icon="@drawable/ic_baseline_map_24"
         android:title="@string/maps"
         app:showAsAction="ifRoom" />
 </menu>
