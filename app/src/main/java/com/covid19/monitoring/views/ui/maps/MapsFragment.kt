@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import com.covid19.monitoring.R
 import com.covid19.monitoring.base.DataBindingFragment
 import com.covid19.monitoring.databinding.MapsFragmentBinding
@@ -31,7 +30,7 @@ class MapsFragment : DataBindingFragment(), OnMapReadyCallback {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val view = binding<MapsFragmentBinding>(
             inflater,
             R.layout.maps_fragment,
@@ -52,7 +51,7 @@ class MapsFragment : DataBindingFragment(), OnMapReadyCallback {
     }
 
     private fun observeData() {
-        viewModel.listRegionData.observe(viewLifecycleOwner, Observer { res ->
+        viewModel.listRegionData.observe(viewLifecycleOwner, { res ->
             when (res.status) {
                 Status.LOADING -> {
                 }
