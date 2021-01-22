@@ -14,10 +14,21 @@ class AppPreferences(context: Context?) {
 
     private val privateMode = 0
     private val prefName = "AppPref"
+    private val latestFetch = "LatestFetch"
     private val globalData = "GlobalData"
     private val trendingDailyUpdate = "DailyList"
     private val regionList = "RegionList"
     private val pref: SharedPreferences? = context?.getSharedPreferences(prefName, privateMode)
+
+    fun setLatestFetch(dateString: String?) {
+        dateString?.let {
+            pref?.edit {
+                putString(latestFetch, it)
+            }
+        }
+    }
+
+    fun getLatestFetch() = pref?.getString(latestFetch, null)
 
     fun setGlobalData(data: GlobalData?) {
         data?.let {
@@ -31,6 +42,12 @@ class AppPreferences(context: Context?) {
         return Gson().fromJson(pref?.getString(globalData, null), GlobalData::class.java)
     }
 
+    fun clearGlobalData() {
+        pref?.edit {
+            putString(globalData, null)
+        }
+    }
+
     fun setDailyList(data: List<DailyUpdateData>?) {
         data?.let {
             pref?.edit {
@@ -39,9 +56,15 @@ class AppPreferences(context: Context?) {
         }
     }
 
-    fun getDailyList(): List<DailyUpdateData> {
+    fun getDailyList(): List<DailyUpdateData>? {
         val listType: Type = object : TypeToken<List<DailyUpdateData>>() {}.type
         return Gson().fromJson(pref?.getString(trendingDailyUpdate, null), listType)
+    }
+
+    fun clearDailyData() {
+        pref?.edit {
+            putString(trendingDailyUpdate, null)
+        }
     }
 
     fun setRegionList(data: List<RegionData>?) {
@@ -55,5 +78,11 @@ class AppPreferences(context: Context?) {
     fun getRegionList(): List<RegionData>? {
         val listType: Type = object : TypeToken<List<RegionData>>() {}.type
         return Gson().fromJson(pref?.getString(regionList, null), listType)
+    }
+
+    fun clearRegionList() {
+        pref?.edit {
+            putString(regionList, null)
+        }
     }
 }

@@ -17,11 +17,16 @@ data class Resource<out T>(
         fun <T> loading(data: T? = null): Resource<T> {
             return Resource(Status.LOADING, data, null)
         }
+
+        fun <T> cached(data: T?): Resource<T> {
+            return Resource(Status.CACHED, data, null)
+        }
     }
 }
 
 enum class Status {
     SUCCESS,
     ERROR,
-    LOADING
+    LOADING,
+    CACHED
 }

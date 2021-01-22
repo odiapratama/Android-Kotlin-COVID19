@@ -1,11 +1,13 @@
 package com.covid19.monitoring.di
 
 import com.covid19.monitoring.services.*
+import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import kotlin.coroutines.CoroutineContext
 
 val serviceModule = module {
     single { createOkHttpClient() }
@@ -17,7 +19,12 @@ val serviceModule = module {
         )
     }
     single { AppPreferences(get()) }
-    single { RepositoryImpl(get(), get()) as Repository }
+    single<Repository> { RepositoryImpl(get(), get(), get()) }
+    single {
+        CoroutineContextProviders(
+            Dispatchers.IO
+        )
+    }
 }
 
 private fun createOkHttpClient(): OkHttpClient {
@@ -41,3 +48,7 @@ private inline fun <reified T> createApi(
         .build()
     return retrofit.create(T::class.java)
 }
+
+open class CoroutineContextProviders(
+    val io: CoroutineContext
+)

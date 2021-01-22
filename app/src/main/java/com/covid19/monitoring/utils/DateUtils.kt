@@ -8,7 +8,12 @@ fun Long.formatTime(): String {
     return sdf.format(Date(this))
 }
 
-fun String.convertDateFormat() =
+fun String.convertDateFormat(): String =
     SimpleDateFormat(DATE_FORMAT, Locale.getDefault()).format(
         SimpleDateFormat(DATE_FORMAT_SERVER, Locale.getDefault()).parse(this) ?: ""
     )
+
+fun getCurrentDate(): String {
+    val calendar = Calendar.getInstance()
+    return SimpleDateFormat(DATE_FORMAT_SERVER, Locale.getDefault()).format(calendar.time)
+}

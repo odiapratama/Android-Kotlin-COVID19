@@ -1,67 +1,78 @@
 package com.covid19.monitoring.services
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
+import com.covid19.monitoring.di.CoroutineContextProviders
 import com.covid19.monitoring.model.DailyUpdateData
 import com.covid19.monitoring.model.GlobalData
 import com.covid19.monitoring.model.RegionData
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.covid19.monitoring.utils.getCurrentDate
 
-class RepositoryImpl(private val api: Api, private val appPref: AppPreferences) : Repository {
+class RepositoryImpl(
+    private val api: Api,
+    private val appPref: AppPreferences,
+    private val contextProviders: CoroutineContextProviders
+) : Repository {
 
-    override suspend fun getGlobalData() = withContext(Dispatchers.IO) {
-        val liveData = MutableLiveData<Resource<GlobalData>>()
-        liveData.postValue(Resource.loading())
-        api.getGlobalData().enqueue(object : Callback<GlobalData> {
-            override fun onFailure(call: Call<GlobalData>, t: Throwable) {
-                liveData.postValue(Resource.error(t.message ?: "", appPref.getGlobalData()))
-            }
+    override suspend fun getGlobalData(): LiveData<Resource<GlobalData>> {
+        return object : NetworkBoundResource<GlobalData, GlobalData>(contextProviders) {
 
-            override fun onResponse(call: Call<GlobalData>, response: Response<GlobalData>) {
-                appPref.setGlobalData(response.body())
-                liveData.postValue(Resource.success(response.body()))
-            }
-        })
-        return@withContext liveData
+            override fun loadFromDB(): GlobalData? = appPref.getGlobalData()
+
+            override fun setLatestFetch() = Unit
+
+            override fun getFetchDate(data: GlobalData?) = ""
+
+            override fun shouldFetchData(data: GlobalData?, fetchDate: String) = true
+
+            override suspend fun remoteCall() = api.getGlobalData()
+
+            override fun saveRemoteData(data: GlobalData) = appPref.setGlobalData(data)
+
+            override fun clearData() = appPref.clearGlobalData()
+
+        }.data
     }
 
-    override suspend fun getDailyUpdateData() = withContext(Dispatchers.IO) {
-        val liveData = MutableLiveData<Resource<List<DailyUpdateData>>>()
-        liveData.postValue(Resource.loading())
-        api.getDailyUpdates().enqueue(object : Callback<List<DailyUpdateData>> {
-            override fun onFailure(call: Call<List<DailyUpdateData>>, t: Throwable) {
-                liveData.postValue(Resource.error(t.message ?: "", appPref.getDailyList()))
+    override suspend fun getDailyUpdateData(): LiveData<Resource<List<DailyUpdateData>>> {
+        return object :
+            NetworkBoundResource<List<DailyUpdateData>, List<DailyUpdateData>>(contextProviders) {
+
+            override fun loadFromDB(): List<DailyUpdateData> = appPref.getDailyList() ?: emptyList()
+
+            override fun setLatestFetch() = appPref.setLatestFetch(getCurrentDate())
+
+            override fun getFetchDate(data: List<DailyUpdateData>?) = appPref.getLatestFetch() ?: ""
+
+            override fun shouldFetchData(data: List<DailyUpdateData>?, fetchDate: String): Boolean {
+                return fetchDate != getCurrentDate()
             }
 
-            override fun onResponse(
-                call: Call<List<DailyUpdateData>>,
-                response: Response<List<DailyUpdateData>>
-            ) {
-                appPref.setDailyList(response.body())
-                liveData.postValue(Resource.success(response.body()))
-            }
-        })
-        return@withContext liveData
+            override suspend fun remoteCall() = api.getDailyUpdates()
+
+            override fun saveRemoteData(data: List<DailyUpdateData>) = appPref.setDailyList(data)
+
+            override fun clearData() = appPref.clearDailyData()
+
+        }.data
     }
 
-    override suspend fun getRegionData() = withContext(Dispatchers.IO) {
-        val liveData = MutableLiveData<Resource<List<RegionData>>>()
-        api.getRegionData().enqueue(object : Callback<List<RegionData>> {
-            override fun onFailure(call: Call<List<RegionData>>, t: Throwable) {
-                liveData.postValue(Resource.error(t.message ?: "", appPref.getRegionList()))
-            }
+    override suspend fun getRegionData(): LiveData<Resource<List<RegionData>>> {
+        return object : NetworkBoundResource<List<RegionData>, List<RegionData>>(contextProviders) {
 
-            override fun onResponse(
-                call: Call<List<RegionData>>,
-                response: Response<List<RegionData>>
-            ) {
-                appPref.setRegionList(response.body())
-                liveData.postValue(Resource.success(response.body()))
-            }
-        })
-        return@withContext liveData
+            override fun loadFromDB(): List<RegionData>? = appPref.getRegionList()
+
+            override fun setLatestFetch() = Unit
+
+            override fun getFetchDate(data: List<RegionData>?) = ""
+
+            override fun shouldFetchData(data: List<RegionData>?, fetchDate: String) = true
+
+            override suspend fun remoteCall() = api.getRegionData()
+
+            override fun saveRemoteData(data: List<RegionData>) = appPref.setRegionList(data)
+
+            override fun clearData() = appPref.clearRegionList()
+
+        }.data
     }
 }
