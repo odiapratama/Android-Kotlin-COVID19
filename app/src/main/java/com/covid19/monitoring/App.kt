@@ -1,16 +1,31 @@
 package com.covid19.monitoring
 
 import android.app.Application
+import android.content.Context
 import com.covid19.monitoring.di.serviceModule
 import com.covid19.monitoring.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
-class Application : Application() {
+class App : Application() {
+
+    companion object {
+        @Volatile
+        private lateinit var INSTANCE: App
+
+        fun appContext(): Context {
+            return INSTANCE.applicationContext
+        }
+    }
+
+    init {
+        INSTANCE = this
+    }
+
     override fun onCreate() {
         super.onCreate()
         startKoin {
-            androidContext(this@Application)
+            androidContext(this@App)
             modules(serviceModule)
             modules(viewModelModule)
             properties(
