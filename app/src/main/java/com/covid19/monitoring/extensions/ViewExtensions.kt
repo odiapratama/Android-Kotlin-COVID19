@@ -8,7 +8,7 @@ import coil.transform.CircleCropTransformation
 import com.covid19.monitoring.R
 
 fun TextView.setLeftDrawable(source: Int) =
-    this.setCompoundDrawablesWithIntrinsicBounds(source, 0, 0, 0)
+    setCompoundDrawablesWithIntrinsicBounds(source, 0, 0, 0)
 
 fun ImageView.loadImageCircleCrop(url: String) {
     load(url) {
@@ -20,9 +20,9 @@ fun ImageView.loadImageCircleCrop(url: String) {
 }
 
 fun View.toVisible() {
-    this.visibility = View.VISIBLE
+    visibility = View.VISIBLE
 }
 
 fun View.toGone() {
-    this.visibility = View.GONE
+    visibility = View.GONE
 }
