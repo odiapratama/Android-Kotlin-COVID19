@@ -42,6 +42,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: app-debug
+          path: app/build/outputs/apk/debug
       - name: Upload to slack step
         uses: adrey/slack-file-upload-action@master
         with:
