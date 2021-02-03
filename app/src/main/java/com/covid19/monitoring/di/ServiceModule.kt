@@ -1,13 +1,18 @@
 package com.covid19.monitoring.di
 
-import com.covid19.monitoring.services.*
+import com.covid19.monitoring.data.repository.Repository
+import com.covid19.monitoring.data.repository.RepositoryImpl
+import com.covid19.monitoring.data.source.database.AppDatabase
+import com.covid19.monitoring.data.source.database.AppPreferences
+import com.covid19.monitoring.data.source.database.provideDatabase
+import com.covid19.monitoring.data.source.remote.API_PATH
+import com.covid19.monitoring.data.source.remote.Api
+import com.covid19.monitoring.services.CoroutineContextProviders
+import com.covid19.monitoring.services.createApi
+import com.covid19.monitoring.services.createOkHttpClient
 import kotlinx.coroutines.Dispatchers
-import okhttp3.OkHttpClient
+import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
-import kotlin.coroutines.CoroutineContext
 
 val serviceModule = module {
     single { createOkHttpClient() }
@@ -19,36 +24,12 @@ val serviceModule = module {
         )
     }
     single { AppPreferences(get()) }
-    single<Repository> { RepositoryImpl(get(), get(), get()) }
+    single<Repository> { RepositoryImpl(get(), get(), get(), get(), get()) }
     single {
         CoroutineContextProviders(
             Dispatchers.IO
         )
     }
+    single { provideDatabase(androidApplication()) }
+    single { get<AppDatabase>().appDao() }
 }
-
-private fun createOkHttpClient(): OkHttpClient {
-    val timeout = 10L
-    return OkHttpClient.Builder()
-        .connectTimeout(timeout, TimeUnit.SECONDS)
-        .readTimeout(timeout, TimeUnit.SECONDS)
-        .retryOnConnectionFailure(false)
-        .build()
-}
-
-private inline fun <reified T> createApi(
-    servicePath: String,
-    okHttpClient: OkHttpClient,
-    baseUrl: String
-): T {
-    val retrofit = Retrofit.Builder()
-        .baseUrl(baseUrl + servicePath)
-        .client(okHttpClient)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-    return retrofit.create(T::class.java)
-}
-
-open class CoroutineContextProviders(
-    val io: CoroutineContext
-)
