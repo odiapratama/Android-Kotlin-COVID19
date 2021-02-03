@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="com.covid19.monitoring.model.DailyUpdateData" />
+            type="com.covid19.monitoring.data.model.DailyUpdateData" />
     </data>
 
     <androidx.cardview.widget.CardView

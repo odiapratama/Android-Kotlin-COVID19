@@ -53,25 +53,20 @@ class NewsFragment : DataBindingFragment() {
 
     private fun observeData() {
         with(viewModel) {
-            dailyUpdatesData.observe(viewLifecycleOwner, { res ->
+            dailyUpdateData.observe(viewLifecycleOwner, { res ->
                 when (res.status) {
-                    Status.LOADING -> {
-                        if (res.data.isNullOrEmpty()) skeleton.showSkeleton()
-                        else dailyAdapter.submitList(res.data.reversed())
-                    }
-                    Status.SUCCESS -> {
-                        dailyAdapter.submitList(res.data?.reversed())
-                        skeleton.showOriginal()
-                    }
+                    Status.LOADING -> if (res.data.isNullOrEmpty()) skeleton.showSkeleton()
+                    Status.SUCCESS -> skeleton.showOriginal()
                     Status.ERROR -> {
                         Toast.makeText(requireContext(), res.msg, Toast.LENGTH_SHORT).show()
                         skeleton.showOriginal()
                     }
-                    Status.CACHED -> {
-                        dailyAdapter.submitList(res.data?.reversed())
-                        skeleton.showOriginal()
-                    }
+                    Status.CACHED -> skeleton.showOriginal()
                 }
+            })
+
+            dailyUpdatesDataSource.observe(viewLifecycleOwner, {
+                if (!it.isNullOrEmpty()) dailyAdapter.submitList(it)
             })
         }
     }

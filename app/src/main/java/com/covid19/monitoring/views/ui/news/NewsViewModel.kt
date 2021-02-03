@@ -1,32 +1,30 @@
 package com.covid19.monitoring.views.ui.news
 
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.switchMap
+import androidx.paging.toLiveData
 import com.covid19.monitoring.base.LiveViewModel
-import com.covid19.monitoring.model.DailyUpdateData
-import com.covid19.monitoring.model.GlobalData
-import com.covid19.monitoring.services.Api
-import com.covid19.monitoring.services.Repository
-import com.covid19.monitoring.services.Resource
-import kotlinx.coroutines.Dispatchers
+import com.covid19.monitoring.data.repository.Repository
 
 class NewsViewModel(private val repository: Repository) : LiveViewModel() {
 
     private val fetchingLiveData = MutableLiveData<Boolean>()
-    val globalData: LiveData<Resource<GlobalData>>
-    val dailyUpdatesData: LiveData<Resource<List<DailyUpdateData>>>
 
-    init {
-        globalData = fetchingLiveData.switchMap {
-            launchOnViewModelScope {
-                repository.getGlobalData()
-            }
-        }
-        dailyUpdatesData = fetchingLiveData.switchMap {
-            launchOnViewModelScope {
-                repository.getDailyUpdateData()
-            }
+    val dailyUpdateData = fetchingLiveData.switchMap {
+        repository.getDailyUpdateData()
+    }
+
+    val globalData = fetchingLiveData.switchMap {
+        repository.getGlobalData()
+    }
+
+    val dailyUpdatesDataSource = fetchingLiveData.switchMap {
+        launchOnViewModelScope {
+            repository.getDailyUpdateDataSource().toLiveData(30)
         }
     }
 
-    fun fetchData() = fetchingLiveData.postValue(true)
+    fun fetchData() {
+        fetchingLiveData.value = true
+    }
 }
