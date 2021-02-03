@@ -2,16 +2,16 @@ package com.covid19.monitoring.views.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.covid19.monitoring.R
+import com.covid19.monitoring.data.model.DailyUpdateData
 import com.covid19.monitoring.databinding.ItemDailyUpdatesBinding
 import com.covid19.monitoring.extensions.setLeftDrawable
-import com.covid19.monitoring.model.DailyUpdateData
 
 class DailyUpdatesAdapter :
-    ListAdapter<DailyUpdateData, DailyUpdatesAdapter.BindingHolder>(DiffUtilCallback()) {
+    PagedListAdapter<DailyUpdateData, DailyUpdatesAdapter.BindingHolder>(DiffUtilCallback()) {
 
     class DiffUtilCallback : DiffUtil.ItemCallback<DailyUpdateData>() {
         override fun areItemsTheSame(oldItem: DailyUpdateData, newItem: DailyUpdateData): Boolean {
@@ -40,13 +40,13 @@ class DailyUpdatesAdapter :
     override fun onBindViewHolder(holder: BindingHolder, position: Int) {
         val data = getItem(position)
         holder.binding.data = data
-        if (position == currentList.size - 1) {
-            if (data.deltaConfirmed == null || data.deltaConfirmed == 0) {
+        if (position == currentList?.size?.minus(1) ?: 0) {
+            if (data?.deltaConfirmed == null || data.deltaConfirmed == 0) {
                 holder.binding.tvConfirmed.setLeftDrawable(R.drawable.ic_right_arrow)
             } else {
                 holder.binding.tvConfirmed.setLeftDrawable(R.drawable.ic_up_arrow)
             }
-            if (data.deltaRecovered == null || data.deltaRecovered == 0) {
+            if (data?.deltaRecovered == null || data.deltaRecovered == 0) {
                 holder.binding.tvRecovered.setLeftDrawable(R.drawable.ic_right_arrow)
             } else {
                 holder.binding.tvRecovered.setLeftDrawable(R.drawable.ic_up_arrow)
@@ -54,10 +54,10 @@ class DailyUpdatesAdapter :
         } else {
             val nextData = getItem(position + 1)
             when {
-                data.deltaConfirmed ?: 0 > nextData.deltaConfirmed ?: 0 -> {
+                data?.deltaConfirmed ?: 0 > nextData?.deltaConfirmed ?: 0 -> {
                     holder.binding.tvConfirmed.setLeftDrawable(R.drawable.ic_up_arrow)
                 }
-                data.deltaConfirmed ?: 0 < nextData.deltaConfirmed ?: 0 -> {
+                data?.deltaConfirmed ?: 0 < nextData?.deltaConfirmed ?: 0 -> {
                     holder.binding.tvConfirmed.setLeftDrawable(R.drawable.ic_down_arrow)
                 }
                 else -> {
@@ -65,10 +65,10 @@ class DailyUpdatesAdapter :
                 }
             }
             when {
-                data.deltaRecovered ?: 0 > nextData.deltaRecovered ?: 0 -> {
+                data?.deltaRecovered ?: 0 > nextData?.deltaRecovered ?: 0 -> {
                     holder.binding.tvRecovered.setLeftDrawable(R.drawable.ic_up_arrow)
                 }
-                data.deltaRecovered ?: 0 < nextData.deltaRecovered ?: 0 -> {
+                data?.deltaRecovered ?: 0 < nextData?.deltaRecovered ?: 0 -> {
                     holder.binding.tvRecovered.setLeftDrawable(R.drawable.ic_down_arrow)
                 }
                 else -> {

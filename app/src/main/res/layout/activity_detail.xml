@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="com.covid19.monitoring.model.RegionData" />
+            type="com.covid19.monitoring.data.model.RegionData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -55,7 +55,7 @@
                 style="@style/roboto_18_medium_white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{data.location}"
+                android:text="@{data.location()}"
                 tools:text="Indonesia" />
 
             <TextView
@@ -63,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@{data.totalCases}"
+                android:text="@{data.totalCases()}"
                 tools:text="1000" />
 
             <TextView
@@ -96,7 +96,7 @@
                     style="@style/roboto_15_medium_white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{data.totalConfirmedWithSeparator}"
+                    android:text="@{data.totalConfirmedWithSeparator()}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -119,7 +119,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{data.totalRecoveredWithSeparator}"
+                    android:text="@{data.totalRecoveredWithSeparator()}"
                     app:layout_constraintEnd_toEndOf="@id/tvRecoveredText"
                     app:layout_constraintStart_toStartOf="@id/tvRecoveredText"
                     app:layout_constraintTop_toBottomOf="@id/tvConfirmedText"
@@ -142,7 +142,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{data.recoveryRate}"
+                    android:text="@{data.recoveryRate()}"
                     app:layout_constraintEnd_toEndOf="@id/tvRecoveryRateText"
                     app:layout_constraintStart_toStartOf="@id/tvRecoveryRateText"
                     app:layout_constraintTop_toBottomOf="@id/tvConfirmedText"
@@ -165,7 +165,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{data.totalDeathsWithSeparator}"
+                    android:text="@{data.totalDeathsWithSeparator()}"
                     app:layout_constraintEnd_toEndOf="@id/tvDeathsText"
                     app:layout_constraintStart_toStartOf="@id/tvDeathsText"
                     app:layout_constraintTop_toBottomOf="@id/tvRecoveredText"
@@ -188,7 +188,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{data.fatalityRate}"
+                    android:text="@{data.fatalityRate()}"
                     app:layout_constraintEnd_toEndOf="@id/tvFatalityRateText"
                     app:layout_constraintStart_toStartOf="@id/tvFatalityRateText"
                     app:layout_constraintTop_toBottomOf="@id/tvRecoveredText"
