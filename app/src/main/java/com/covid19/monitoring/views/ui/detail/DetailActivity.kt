@@ -6,7 +6,7 @@ import com.covid19.monitoring.R
 import com.covid19.monitoring.base.DataBindingActivity
 import com.covid19.monitoring.databinding.ActivityDetailBinding
 import com.covid19.monitoring.extensions.applyMaterialTransform
-import com.covid19.monitoring.model.RegionData
+import com.covid19.monitoring.data.model.RegionData
 import com.covid19.monitoring.utils.REGION_DATA_EXTRA
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.PieData
