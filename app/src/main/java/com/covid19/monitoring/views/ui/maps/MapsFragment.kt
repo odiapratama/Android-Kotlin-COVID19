@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.covid19.monitoring.R
 import com.covid19.monitoring.base.DataBindingFragment
+import com.covid19.monitoring.data.model.RegionData
 import com.covid19.monitoring.databinding.MapsFragmentBinding
-import com.covid19.monitoring.model.RegionData
 import com.covid19.monitoring.services.Status
 import com.covid19.monitoring.utils.slideAnimation
 import com.covid19.monitoring.views.ui.home.HomeViewModel
@@ -53,14 +54,10 @@ class MapsFragment : DataBindingFragment(), OnMapReadyCallback {
     private fun observeData() {
         viewModel.listRegionData.observe(viewLifecycleOwner, { res ->
             when (res.status) {
-                Status.LOADING -> {
-                }
-                Status.SUCCESS -> {
-                    initMarkers(res.data)
-                }
-                Status.ERROR -> {
-                    initMarkers(res.data)
-                }
+                Status.LOADING -> Unit
+                Status.SUCCESS -> initMarkers(res.data)
+                Status.ERROR -> Toast.makeText(requireContext(), res.msg, Toast.LENGTH_SHORT).show()
+                Status.CACHED -> initMarkers(res.data)
             }
         })
     }
@@ -76,8 +73,8 @@ class MapsFragment : DataBindingFragment(), OnMapReadyCallback {
         listRegion?.forEach { data ->
             val marker = googleMap?.addMarker(
                 MarkerOptions()
-                    .position(LatLng(data.lat ?: 0.0, data.long ?: 0.0))
-                    .title(data.location)
+                    .position(LatLng(data.lat ?: 0.0, data.lng ?: 0.0))
+                    .title(data.location())
             )
             marker?.let { markers.add(it) }
         }
@@ -98,7 +95,7 @@ class MapsFragment : DataBindingFragment(), OnMapReadyCallback {
                 )
             )
             listRegion?.firstOrNull { region ->
-                region.lat == it.position.latitude && region.long == it.position.longitude
+                region.lat == it.position.latitude && region.lng == it.position.longitude
             }?.run {
                 slideAnimation(binding.clConfirmed, true)
                 binding.regionData = this
