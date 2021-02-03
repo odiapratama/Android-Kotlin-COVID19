@@ -1,4 +1,4 @@
-package com.covid19.monitoring.model
+package com.covid19.monitoring.data.model
 
 import com.covid19.monitoring.utils.toNumberSeparator
 
