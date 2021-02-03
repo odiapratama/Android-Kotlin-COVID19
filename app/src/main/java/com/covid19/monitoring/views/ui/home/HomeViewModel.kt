@@ -1,25 +1,26 @@
 package com.covid19.monitoring.views.ui.home
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.switchMap
+import androidx.paging.toLiveData
 import com.covid19.monitoring.base.LiveViewModel
-import com.covid19.monitoring.model.RegionData
-import com.covid19.monitoring.services.Repository
-import com.covid19.monitoring.services.Resource
+import com.covid19.monitoring.data.repository.Repository
 
-class HomeViewModel(repository: Repository) : LiveViewModel() {
+class HomeViewModel(private val repository: Repository) : LiveViewModel() {
 
     private var fetchingLiveData: MutableLiveData<Boolean> = MutableLiveData()
-    var listRegionData: LiveData<Resource<List<RegionData>>>
 
-    init {
-        this.listRegionData = this.fetchingLiveData.switchMap {
-            launchOnViewModelScope {
-                repository.getRegionData()
-            }
+    val listRegionData = fetchingLiveData.switchMap {
+        repository.getRegionData()
+    }
+
+    val regionDataSource = fetchingLiveData.switchMap {
+        launchOnViewModelScope {
+            repository.getRegionDataSource().toLiveData(30)
         }
     }
 
-    fun fetch() = fetchingLiveData.postValue(true)
+    fun fetch() {
+        fetchingLiveData.value = true
+    }
 }
