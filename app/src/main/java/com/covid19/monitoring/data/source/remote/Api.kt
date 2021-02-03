@@ -1,8 +1,8 @@
-package com.covid19.monitoring.services
+package com.covid19.monitoring.data.source.remote
 
-import com.covid19.monitoring.model.DailyUpdateData
-import com.covid19.monitoring.model.GlobalData
-import com.covid19.monitoring.model.RegionData
+import com.covid19.monitoring.data.model.DailyUpdateData
+import com.covid19.monitoring.data.model.GlobalData
+import com.covid19.monitoring.data.model.RegionData
 import retrofit2.http.GET
 
 const val API_PATH = "api/"
