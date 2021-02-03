@@ -32,14 +32,14 @@ jobs:
       - name: Build debug APK
         run: bash ./gradlew assembleDebug --stacktrace
       - name: Upload APK
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
           name: app-debug
           path: app/build/outputs/apk/debug/app-debug.apk
       - name: Checkout
         uses: actions/checkout@v2
       - name: Download app APK
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
           name: app-debug
       - name: Upload to slack step
