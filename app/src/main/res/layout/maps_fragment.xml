@@ -7,7 +7,7 @@
 
         <variable
             name="regionData"
-            type="com.covid19.monitoring.model.RegionData" />
+            type="com.covid19.monitoring.data.model.RegionData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,7 +43,7 @@
                 style="@style/roboto_15_medium_white"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@{regionData.totalConfirmedWithSeparator}"
+                android:text="@{regionData.totalConfirmedWithSeparator()}"
                 app:layout_constraintEnd_toEndOf="@id/tvConfirmedText"
                 app:layout_constraintStart_toStartOf="@id/tvConfirmedText"
                 app:layout_constraintTop_toTopOf="parent"
@@ -65,7 +65,7 @@
                 style="@style/roboto_15_medium_white"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@{regionData.totalRecoveredWithSeparator}"
+                android:text="@{regionData.totalRecoveredWithSeparator()}"
                 app:layout_constraintEnd_toEndOf="@id/tvRecoveredText"
                 app:layout_constraintStart_toStartOf="@id/tvRecoveredText"
                 app:layout_constraintTop_toTopOf="parent"
@@ -87,7 +87,7 @@
                 style="@style/roboto_15_medium_white"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@{regionData.totalDeathsWithSeparator}"
+                android:text="@{regionData.totalDeathsWithSeparator()}"
                 app:layout_constraintEnd_toEndOf="@id/tvDeathsText"
                 app:layout_constraintStart_toStartOf="@id/tvDeathsText"
                 app:layout_constraintTop_toTopOf="parent"
