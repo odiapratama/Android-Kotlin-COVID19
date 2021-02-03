@@ -1,20 +1,16 @@
 package com.covid19.monitoring.views.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.covid19.monitoring.data.model.RegionData
 import com.covid19.monitoring.databinding.ItemRegionBinding
-import com.covid19.monitoring.model.RegionData
 
-class RegionAdapter(private var listRegion: List<RegionData>) :
-    RecyclerView.Adapter<RegionAdapter.BindingHolder>() {
-
-    lateinit var listener: OnItemClickListener
-
-    interface OnItemClickListener {
-        fun onClick(view: View, regionData: RegionData)
-    }
+class RegionAdapter(
+    private val onClicked: (RegionData) -> Unit
+) : PagedListAdapter<RegionData, RegionAdapter.BindingHolder>(DiffCallback()) {
 
     inner class BindingHolder(val binding: ItemRegionBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -25,20 +21,24 @@ class RegionAdapter(private var listRegion: List<RegionData>) :
         return BindingHolder(binding)
     }
 
-    override fun getItemCount(): Int = listRegion.size
-
     override fun onBindViewHolder(holder: BindingHolder, position: Int) {
-        val data = listRegion[position]
+        val data = getItem(position)
         holder.binding.data = data
         holder.binding.cvRegion.setOnClickListener {
-            listener.onClick(it, data)
+            if (data != null) {
+                onClicked(data)
+            }
         }
     }
 
-    fun updateData(newList: List<RegionData>?) {
-        newList?.let {
-            listRegion = it
-            notifyDataSetChanged()
+    class DiffCallback : DiffUtil.ItemCallback<RegionData>() {
+
+        override fun areItemsTheSame(oldItem: RegionData, newItem: RegionData): Boolean {
+            return oldItem.regionDataId == newItem.regionDataId
+        }
+
+        override fun areContentsTheSame(oldItem: RegionData, newItem: RegionData): Boolean {
+            return oldItem == newItem
         }
     }
 }

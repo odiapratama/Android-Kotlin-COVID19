@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="com.covid19.monitoring.model.RegionData" />
+            type="com.covid19.monitoring.data.model.RegionData" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="@{data.location}"
+                android:text="@{data.location()}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/ivFlag"
                 app:layout_constraintTop_toTopOf="parent"
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:drawablePadding="4dp"
-                android:text="@{String.format(@string/prefix_confirmed, data.totalConfirmedWithSeparator)}"
+                android:text="@{String.format(@string/prefix_confirmed, data.totalConfirmedWithSeparator())}"
                 app:layout_constraintStart_toEndOf="@id/ivFlag"
                 app:layout_constraintTop_toBottomOf="@id/tvLocation"
                 tools:text="Confirmed: 1000" />
@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:drawablePadding="4dp"
-                android:text="@{String.format(@string/prefix_recovered, data.totalRecoveredWithSeparator)}"
+                android:text="@{String.format(@string/prefix_recovered, data.totalRecoveredWithSeparator())}"
                 app:layout_constraintStart_toEndOf="@id/ivFlag"
                 app:layout_constraintTop_toBottomOf="@id/tvConfirmed"
                 tools:text="Recovered: 1000" />
@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:drawablePadding="4dp"
-                android:text="@{String.format(@string/prefix_deaths, data.totalDeathsWithSeparator)}"
+                android:text="@{String.format(@string/prefix_deaths, data.totalDeathsWithSeparator())}"
                 app:layout_constraintStart_toEndOf="@id/tvRecovered"
                 app:layout_constraintTop_toBottomOf="@id/tvConfirmed"
                 tools:text="Deaths: 1000" />
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="@{String.format(@string/prefix_last_update, data.lastUpdateFormat)}"
+                android:text="@{String.format(@string/prefix_last_update, data.lastUpdateFormat())}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Last update 20 March 2020" />

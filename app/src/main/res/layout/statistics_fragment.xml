@@ -8,7 +8,7 @@
         <!-- next improvement -->
         <variable
             name="data"
-            type="com.covid19.monitoring.model.RegionData" />
+            type="com.covid19.monitoring.data.model.RegionData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
