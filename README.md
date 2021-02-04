@@ -17,10 +17,12 @@ Go to the [Releases](https://github.com/odiapratama/Android-Kotlin-COVID19/relea
 - Minimum SDK level 21
 - [Kotlin](https://kotlinlang.org/) based
 - [Coroutines](https://github.com/Kotlin/kotlinx.coroutines)
+- Offline-First
 - JetPack
   - LiveData
   - Lifecycle
   - ViewModel
+  - Room
 - Architecture
   - MVVM Architecture
   - Repository pattern
