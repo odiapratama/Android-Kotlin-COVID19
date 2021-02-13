@@ -23,6 +23,7 @@ Go to the [Releases](https://github.com/odiapratama/Android-Kotlin-COVID19/relea
   - Lifecycle
   - ViewModel
   - Room
+  - Paging
 - Architecture
   - MVVM Architecture
   - Repository pattern
@@ -30,6 +31,8 @@ Go to the [Releases](https://github.com/odiapratama/Android-Kotlin-COVID19/relea
 - [Retrofit2 & Gson](https://github.com/square/retrofit) - Constructing the REST API
 - [Coil](https://github.com/coil-kt/coil) - Image loader
 - Shared element container transform/transition🤩
+- UI/Unit test
+- Github action (Automatically send apk to Slack)
 
 # License
 ```xml
