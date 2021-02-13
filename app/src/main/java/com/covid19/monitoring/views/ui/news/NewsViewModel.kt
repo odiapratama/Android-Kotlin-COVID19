@@ -8,7 +8,7 @@ import com.covid19.monitoring.data.repository.Repository
 
 class NewsViewModel(private val repository: Repository) : LiveViewModel() {
 
-    private val fetchingLiveData = MutableLiveData<Boolean>()
+    val fetchingLiveData = MutableLiveData<Boolean>()
 
     val dailyUpdateData = fetchingLiveData.switchMap {
         repository.getDailyUpdateData()
